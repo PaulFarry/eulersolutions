@@ -1,4 +1,5 @@
 ﻿using Common;
+using System.Diagnostics;
 
 namespace Problems
 {
@@ -8,7 +9,6 @@ namespace Problems
 
         public string Execute()
         {
-            throw new ProblemIncompleteException();
 
             var a = 1;
             var b = 2;
@@ -16,12 +16,14 @@ namespace Problems
 
             while (true)
             {
-             //   Debug.Print($"{a} {b} {c}");
-                if (((a ^ 2) + (b ^ 2)) == (c ^ 2))
+                //   Debug.Print($"{a} {b} {c}");
+                if (((a * a) + (b * b)) == (c * c))
                 {
                     if (a + b + c == 1000)
                     {
-                        return ($"Winner {a} {b} {c}");
+                        Debug.Print ($"Winner {a} {b} {c}");
+                        var result = a * b * c;
+                        return result.ToString();
                         break;
                     }
                 }
