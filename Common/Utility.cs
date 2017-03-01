@@ -6,7 +6,7 @@ namespace Common
     {
         public static long SumDigits(string number)
         {
-            var digits = number.ToString().ToCharArray();
+            var digits = number.ToCharArray();
             var finalResult = 0;
 
             foreach (var digit in digits)
