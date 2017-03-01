@@ -16,16 +16,10 @@ namespace Problems
                 currentCalculation = currentCalculation * (ulong)startPoint;
                 startPoint--;
             }
-            //Debug.Print($"{currentCalculation}");
-            var digits = currentCalculation.ToString().ToCharArray();
-            var finalResult = 0;
 
-            foreach (var digit in digits)
-            {
-                var digitValue = int.Parse(digit.ToString());
-                finalResult += digitValue;
-            }
-            return ($"{finalResult}");
+            var value = Utility.SumDigits(currentCalculation.ToString());
+                        
+            return ($"{value}");
         }
     }
 }
