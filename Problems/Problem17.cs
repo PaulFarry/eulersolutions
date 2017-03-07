@@ -1,4 +1,7 @@
 ﻿using Common;
+using System;
+using System.Collections.Generic;
+using System.Diagnostics;
 using System.Text;
 
 namespace Problems
@@ -9,111 +12,267 @@ namespace Problems
 
         public string Execute()
         {
-            throw new ProblemIncompleteException();
+            var nc = new NumberToTextConverter { IncludeCents = false, WholeNumberName = string.Empty, DecimalNumberName = string.Empty };
 
-            var data = GetWord(950);
-            return (data);
+            var totalResult = new StringBuilder();
+
+            var result = nc.ShowValue(100);
+            for (var currentNumber = 1; currentNumber <= 1000; currentNumber++)
+            {
+                var output = nc.ShowValue(currentNumber);
+                totalResult.Append(output);
+                totalResult.Append(" ");
+            }
+
+            var h = new HashSet<char>();
+            var totalCharacters = 0;
+            foreach (var character in totalResult.ToString().ToCharArray())
+            {
+                if (char.IsLetter(character))
+                {
+                    h.Add(character);
+                    totalCharacters++;
+                }
+            }
+            return totalCharacters.ToString();
+        }
+    }
+
+    public class NumberToTextConverter
+    {
+        private static Dictionary<int, string> BaseUnits;
+        private static Dictionary<long, string> MajorValues;
+
+        private static string ZeroValue = "No";
+        static NumberToTextConverter()
+        {
+            BaseUnits = new Dictionary<int, string>();
+            BaseUnits.Add(0, "");
+            BaseUnits.Add(1, "One");
+            BaseUnits.Add(2, "Two");
+            BaseUnits.Add(3, "Three");
+            BaseUnits.Add(4, "Four");
+            BaseUnits.Add(5, "Five");
+            BaseUnits.Add(6, "Six");
+            BaseUnits.Add(7, "Seven");
+            BaseUnits.Add(8, "Eight");
+            BaseUnits.Add(9, "Nine");
+            BaseUnits.Add(10, "Ten");
+            BaseUnits.Add(11, "Eleven");
+            BaseUnits.Add(12, "Twelve");
+            BaseUnits.Add(13, "Thirteen");
+            BaseUnits.Add(14, "Fourteen");
+            BaseUnits.Add(15, "Fifteen");
+            BaseUnits.Add(16, "Sixteen");
+            BaseUnits.Add(17, "Seventeen");
+            BaseUnits.Add(18, "Eighteen");
+            BaseUnits.Add(19, "Nineteen");
+            BaseUnits.Add(20, "Twenty");
+            BaseUnits.Add(30, "Thirty");
+            BaseUnits.Add(40, "Forty");
+            BaseUnits.Add(50, "Fifty");
+            BaseUnits.Add(60, "Sixty");
+            BaseUnits.Add(70, "Seventy");
+            BaseUnits.Add(80, "Eighty");
+            BaseUnits.Add(90, "Ninety");
+
+            MajorValues = new Dictionary<long, string>();
+            MajorValues.Add(1, string.Empty);
+            MajorValues.Add(1000, "Thousand");
+            MajorValues.Add(1000000, "Million");
+            MajorValues.Add(1000000000, "Billion");
         }
 
-        private static string GetWord(int value, StringBuilder builder = null)
-        {
-            if (builder == null) builder = new StringBuilder();
+        public bool UppercaseDisplay { get; set; }
+        public bool IncludeCents { get; set; }
 
-            if (value < 10)
+        public string WholeNumberName { get; set; }
+        public string DecimalNumberName { get; set; }
+
+        public NumberToTextConverter()
+        {
+            UppercaseDisplay = true;
+            IncludeCents = true;
+            WholeNumberName = "dollars";
+            DecimalNumberName = "cents";
+        }
+
+        private string GroupProcessor(bool hasPreviousInput, int num, long displayUnit)
+        {
+            string displayText = MajorValues[displayUnit];
+
+            int hundreds = num / 100;
+            int hundredsremainder = num - (hundreds * 100);
+            StringBuilder output = new StringBuilder();
+
+            if (num != 0)
             {
-                switch (value)
+                if (hundreds == 0)
                 {
-                    case 1:
-                        return "One";
-                    case 2:
-                        return "Two";
-                    case 3:
-                        return "Three";
-                    case 4:
-                        return "Four";
-                    case 5:
-                        return "Five";
-                    case 6:
-                        return "Six";
-                    case 7:
-                        return "Seven";
-                    case 8:
-                        return "Eight";
-                    case 9:
-                        return "Nine";
+                    if (hasPreviousInput)
+                        output.Append("and ");
+                }
+                else
+                {
+                    output.AppendFormat("{0} Hundred ", BaseUnits[hundreds]);
+
+                    if (hundredsremainder != 0)
+                        output.Append("and ");
+
+                }
+
+
+                if (hundredsremainder > 0)
+                {
+                    if (hundredsremainder < 20)
+                    {
+                        output.AppendFormat("{0} ", BaseUnits[hundredsremainder]);
+                    }
+                    else
+                    {
+                        int tens = (hundredsremainder / 10);
+                        int units = hundredsremainder - (tens * 10);
+
+                        if (tens == 0)
+                        {
+                            output.AppendFormat("{0} ", BaseUnits[units]);
+                        }
+                        else
+                        {
+                            if ((units == 0))
+                            {
+                                output.AppendFormat("{0} ", BaseUnits[tens * 10], BaseUnits[units]);
+                            }
+                            else
+                            {
+                                output.AppendFormat("{0}-{1} ", BaseUnits[tens * 10], BaseUnits[units]);
+                            }
+                        }
+                    }
+                }
+                output.AppendFormat("{0} ", displayText);
+            }
+            return output.ToString();
+        }
+
+        public string ShowValue(decimal value)
+        {
+
+            if ((value <= 0))
+                throw new ArgumentException("Value must be Greater than 0, otherwise an invoice is required", "value");
+
+            string result = null;
+            decimal dollars = Math.Floor(value);
+            decimal cents = Math.Floor(Math.Round((value - dollars) * 100));
+
+            List<int> centsBreakDown = BreakDown(cents);
+            List<int> dollarsBreakDown = BreakDown(dollars);
+
+            string dollarsText = DisplayResult(dollarsBreakDown, true, WholeNumberName);
+            string centsText = DisplayResult(centsBreakDown, true, DecimalNumberName);
+
+            string formatDefinition = "{0}{1}";
+
+            if (dollarsBreakDown.Count > 0 && centsBreakDown.Count > 0)
+            {
+                if (IncludeCents)
+                {
+                    formatDefinition = "{0} and {1}";
+                }
+                else
+                {
+                    formatDefinition = "{0}";
                 }
             }
-            else if (value < 20)
+
+            result = string.Format(formatDefinition, dollarsText, centsText).Trim();
+            if (UppercaseDisplay)
             {
-                switch (value)
-                {
-                    case 10:
-                        return "Ten";
-                    case 11:
-                        return "Eleven";
-                    case 12:
-                        return "Twelve";
-                    case 13:
-                        return "Thirteen";
-                    case 14:
-                        return "Fourteen";
-                    case 15:
-                        return "Fifteen";
-                    case 16:
-                        return "Sixteen";
-                    case 17:
-                        return "Seventeen";
-                    case 18:
-                        return "Eighteen";
-                    case 19:
-                        return "Nineteen";
-                }
-            }
-            else if (value > 20 && value < 100)
-            {
-                var item = value / 10;
-                switch (item)
-                {
-                    case 20:
-                        builder.Append("Twenty");
-                        break;
-                    case 30:
-                        builder.Append("Thirty");
-                        break;
-                    case 40:
-                        builder.Append("Forty");
-                        break;
-                    case 50:
-                        builder.Append("Fifty");
-                        break;
-                    case 60:
-                        builder.Append("Sixty");
-                        break;
-                    case 70:
-                        builder.Append("Seventy");
-                        break;
-                    case 80:
-                        builder.Append("Eighty");
-                        break;
-                    case 90:
-                        builder.Append("Ninety");
-                        break;
-                }
-            }
-            else if (value >= 100 && value < 1000)
-            {
-                var item = value / 100;
-                builder.Append(GetWord(item, builder));
-                builder.Append(" Hundred");
-                GetWord(value - (item * 100), builder);
+                return result.ToUpperInvariant();
             }
             else
             {
-                var item = value / 1000;
-                builder.Append(GetWord(item));
-                builder.Append(" Thousand");
+                return result;
             }
-            return builder.ToString();
+        }
+
+        private string DisplayResult(List<int> results, bool includeZero, string unitDescription)
+        {
+            StringBuilder sb = new StringBuilder();
+            long index = 1;
+            List<string> finalOutput = new List<string>();
+            List<int> inputReversed = new List<int>(results);
+            inputReversed.Reverse();
+
+            index = (long)(1 * Math.Pow(1000, (results.Count - 1)));
+
+            string preResult = null;
+            if (results.Count == 0 || (results.Count == 1 && (results[0] == 0)) && includeZero)
+            {
+                preResult = ZeroValue;
+            }
+            else
+            {
+                bool previousInput = false;
+                foreach (int r in inputReversed)
+                {
+                    finalOutput.Add(this.GroupProcessor(previousInput, r, index));
+                    previousInput = true;
+                    index /= 1000;
+                }
+
+                foreach (string b in finalOutput)
+                {
+                    sb.Append(b);
+                }
+
+                preResult = sb.ToString().Trim();
+
+            }
+
+            if (preResult.Length > 0)
+            {
+                preResult += " " + unitDescription;
+            }
+            return preResult;
+
+        }
+
+
+        private List<int> BreakDown(decimal num)
+        {
+            List<int> result = new List<int>();
+
+            if (num == 0)
+            {
+                result.Add(0);
+                return result;
+            }
+
+            decimal currentNumber = num;
+
+            int nextValue = 0;
+            bool continueProcessing = true;
+
+
+
+            while (continueProcessing)
+            {
+                if (currentNumber >= 1000)
+                {
+                    nextValue = (int)(currentNumber - ((currentNumber / 1000) * 1000));
+                    currentNumber = Math.Floor(currentNumber / 1000);
+                }
+                else
+                {
+                    nextValue = (int)currentNumber;
+                    continueProcessing = false;
+                }
+                result.Add(nextValue);
+            }
+
+            return result;
         }
     }
+
 }
