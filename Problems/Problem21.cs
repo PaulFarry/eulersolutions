@@ -39,27 +39,12 @@ namespace Problems
             return result.ToString();
         }
 
-        private List<int> GetDivisors(int number)
-        {
-            var tippingPoint = Math.Sqrt(number);
-            var divisors = new List<int> { 1 };
-            for (var i = 2; i <= tippingPoint; i++)
-            {
-                if ((number % i) == 0)
-                {
-                    divisors.Add(i);
-                    divisors.Add(number / i);
-                }
-            }
-            divisors.Sort();
-            return divisors;
-        }
 
         private bool AmicableNumber(int startNumber)
         {
-            var original = GetDivisors(startNumber);
+            var original = Utility.GetAllDivisors(startNumber);
             var sumOriginalDivisors = original.Sum();
-            var factor = GetDivisors(sumOriginalDivisors);
+            var factor = Utility.GetAllDivisors(sumOriginalDivisors);
             var sumFactorDivisors = factor.Sum();
             if (sumOriginalDivisors == startNumber) return false;
             return ((sumFactorDivisors == startNumber));
