@@ -58,9 +58,11 @@
     <Compile Include="Problem14.cs" />
     <Compile Include="Problem16.cs" />
     <Compile Include="Problem17.cs" />
+    <Compile Include="Problem18.cs" />
     <Compile Include="Problem19.cs" />
     <Compile Include="Problem20.cs" />
     <Compile Include="Problem21.cs" />
+    <Compile Include="Problem67.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -68,6 +70,9 @@
       <Project>{54b38f04-504e-488c-b7c0-94ca40d74dc4}</Project>
       <Name>Common</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="DataFiles\p67.txt" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
