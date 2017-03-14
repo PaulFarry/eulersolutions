@@ -53,11 +53,11 @@ namespace Problems
 
             public Mover(int Width, int Height)
             {
-                XLimit = 1;
-                YLimit = 1;
+                ColLimit = 1;
+                RowLimit = 1;
                 CurrentMove = Right;
                 TotalMoves = Width * Height;
-                Column = Width / 2;
+                Col = Width / 2;
                 Row = Height / 2;
                 Right.NextMove = Down;
                 Down.NextMove = Left;
@@ -80,12 +80,12 @@ namespace Problems
             private int MovesCompleted;
             public int TotalMoves { get; set; }
 
-            public int Column { get; set; }
+            public int Col { get; set; }
             public int Row { get; set; }
-            public int XCounter { get; set; }
-            public int YCounter { get; set; }
-            public int XLimit { get; set; }
-            public int YLimit { get; set; }
+            public int ColCounter { get; set; }
+            public int RowCounter { get; set; }
+            public int ColLimit { get; set; }
+            public int RowLimit { get; set; }
 
 
             public bool MakeMove()
@@ -93,28 +93,28 @@ namespace Problems
                 MovesCompleted++;
                 if (MovesCompleted <= TotalMoves)
                 {
-                    Result[Row, Column] = MovesCompleted;
-                    Column += CurrentMove.Column;
+                    Result[Row, Col] = MovesCompleted;
+                    Col += CurrentMove.Column;
                     Row += CurrentMove.Row;
 
                     if (CurrentMove.Column != 0)
                     {
-                        XCounter++;
-                        if (XCounter >= XLimit)
+                        ColCounter++;
+                        if (ColCounter >= ColLimit)
                         {
-                            XLimit++;
+                            ColLimit++;
                             CurrentMove = CurrentMove.NextMove;
-                            XCounter = 0;
+                            ColCounter = 0;
                         }
                     }
                     else
                     {
-                        YCounter++;
-                        if (YCounter >= YLimit)
+                        RowCounter++;
+                        if (RowCounter >= RowLimit)
                         {
-                            YLimit++;
+                            RowLimit++;
                             CurrentMove = CurrentMove.NextMove;
-                            YCounter = 0;
+                            RowCounter = 0;
                         };
                     }
                     return (MovesCompleted < TotalMoves);
