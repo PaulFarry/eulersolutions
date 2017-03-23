@@ -22,7 +22,7 @@ namespace Problems
             {
                 startValue *= 2;
             }
-            var value = Utility.SumDigits(startValue.ToString());
+            var value = Utility.SumDigits(startValue);
             return value.ToString();
         }
     }

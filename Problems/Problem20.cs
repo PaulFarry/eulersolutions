@@ -17,7 +17,7 @@ namespace Problems
                 startPoint--;
             }
 
-            var value = Utility.SumDigits(currentCalculation.ToString());
+            var value = Utility.SumDigits(currentCalculation);
                         
             return ($"{value}");
         }
