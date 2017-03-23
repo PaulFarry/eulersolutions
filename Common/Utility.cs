@@ -101,6 +101,11 @@ namespace Common
         }
 
 
+        public static long SumDigits(BigInteger number)
+        {
+            return SumDigits(number.ToString());
+        }
+
         public static long SumDigits(string number)
         {
             var digits = number.ToCharArray();
