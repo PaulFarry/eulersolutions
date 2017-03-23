@@ -24,7 +24,6 @@ namespace Problems
                         Debug.Print ($"Winner {a} {b} {c}");
                         var result = a * b * c;
                         return result.ToString();
-                        break;
                     }
                 }
 
