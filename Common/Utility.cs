@@ -1,11 +1,49 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
+using System.IO;
 using System.Numerics;
+using System.Reflection;
+using System.Text;
 
 namespace Common
 {
     public class Utility
     {
+        public static void GeneratePrimes(long maximumValue)
+        {
+            var items = new StringBuilder();
+            for (var i = 1; i < maximumValue; i++)
+            {
+                if (IsPrime(i))
+                {
+                    items.AppendLine($"{i}");
+                }
+            }
+            Debug.Print(items.ToString());
+        }
+
+        public static List<int> LoadPrimes(int maximumValue)
+        {
+            var values = new List<int>();
+            using (var primeResourceFileData = Assembly.GetExecutingAssembly().GetManifestResourceStream("Common.PrimeList.txt"))
+            {
+                using (var sr = new StreamReader(primeResourceFileData))
+                {
+                    while (true)
+                    {
+                        var currentLine = sr.ReadLine();
+                        if (string.IsNullOrEmpty(currentLine)) break;
+                        var currentValue = int.Parse(currentLine);
+                        if (currentValue <= maximumValue)
+                        {
+                            values.Add(currentValue);
+                        }
+                    }
+                }
+            }
+            return values;
+        }
 
         public static List<long> GetAllDivisors(long number)
         {
