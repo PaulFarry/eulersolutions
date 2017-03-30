@@ -13,7 +13,7 @@ namespace Problems
         {
             var power = 5;
             var start = 2;
-            var end = 200000;
+            var end = (power + 1) * Math.Pow(9, power);
 
             var values = new List<int>();
 
