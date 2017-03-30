@@ -2,17 +2,26 @@
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
+using System.Linq;
 
 class Program
 {
     static void Main(string[] args)
     {
-        //Utility.GeneratePrimes(1000000);
-        var x = Utility.LoadPrimes(1000000);
         var solvableProblems = FindProblems();
 
         var problemToRun = 37;
         RunProblems(solvableProblems, problemToRun);
+    }
+
+    private static void GeneratePrimes()
+    {
+        //Utility.GeneratePrimes(1000000);
+        var primeList = Utility.LoadPrimes(1000000);
+        var minValue = primeList.Max();
+
+        Utility.GeneratePrimes(minValue + 1, 2000000);
+        return;
     }
 
     private static void RunProblems(SortedDictionary<int, IProblem> solvableProblems, int problemToRun)

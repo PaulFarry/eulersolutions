@@ -10,17 +10,29 @@ namespace Common
 {
     public class Utility
     {
+        public static void GeneratePrimes(long minValue, long maxValue)
+        {
+            {
+                var items = new StringBuilder();
+                for (var i = 1; i < maxValue; i++)
+                {
+                    if (IsPrime(i))
+                    {
+                        items.AppendLine($"{i}");
+                    }
+                }
+                Debug.Print(items.ToString());
+            }
+        }
+
         public static void GeneratePrimes(long maximumValue)
         {
-            var items = new StringBuilder();
-            for (var i = 1; i < maximumValue; i++)
-            {
-                if (IsPrime(i))
-                {
-                    items.AppendLine($"{i}");
-                }
-            }
-            Debug.Print(items.ToString());
+            GeneratePrimes(1, maximumValue);
+        }
+
+        public static List<int> LoadPrimes()
+        {
+            return LoadPrimes(int.MaxValue);
         }
 
         public static List<int> LoadPrimes(int maximumValue)
