@@ -7,9 +7,11 @@ class Program
 {
     static void Main(string[] args)
     {
+        //Utility.GeneratePrimes(1000000);
+        var x = Utility.LoadPrimes(1000000);
         var solvableProblems = FindProblems();
 
-        var problemToRun = 30;
+        var problemToRun = 37;
         RunProblems(solvableProblems, problemToRun);
     }
 
