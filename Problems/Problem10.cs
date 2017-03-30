@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Diagnostics;
-using Common;
+﻿using Common;
 
 namespace Problems
 {
@@ -14,15 +8,11 @@ namespace Problems
 
         public string Execute()
         {
-            var value = 1;
             long total = 0;
-            while (value < 2000000)
+            var primeList = Utility.LoadPrimes(2000000);
+            foreach(var value in primeList)
             {
-                if (Utility.IsPrime(value))
-                {
-                    total += value;
-                }
-                value++;
+                total += value;
             }
 
             return total.ToString();

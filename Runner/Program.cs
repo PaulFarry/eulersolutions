@@ -10,7 +10,7 @@ class Program
     {
         var solvableProblems = FindProblems();
 
-        var problemToRun = 37;
+        var problemToRun = 35;
         RunProblems(solvableProblems, problemToRun);
     }
 

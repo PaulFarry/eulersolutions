@@ -1,7 +1,5 @@
 ﻿using Common;
-using System;
 using System.Collections.Generic;
-using System.Diagnostics;
 using System.Linq;
 
 namespace Problems
@@ -34,8 +32,6 @@ namespace Problems
                 }
             }
             var result = amicableNumbers.Sum();
-
-            amicableNumbers.ForEach(x => Debug.Print(x.ToString()));
             return result.ToString();
         }
 

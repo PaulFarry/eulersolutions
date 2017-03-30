@@ -14,16 +14,9 @@ namespace Problems
             //circular primes < 100 = 2,3,5,7,11,13,17,31,37,71,73,79,97
             //circular primes < 1000000
             var maxValue = 1000000;
-            PrimeList = new HashSet<int>();
-            var currentValue = 1;
-            while (currentValue < maxValue)
-            {
-                if (Utility.IsPrime(currentValue))
-                {
-                    PrimeList.Add(currentValue);
-                }
-                currentValue++;
-            }
+            var primes = Utility.LoadPrimes(maxValue);
+            PrimeList = new HashSet<int>(primes);
+
             var circular = new HashSet<int>();
 
             foreach (var checkValue in PrimeList)
@@ -35,7 +28,6 @@ namespace Problems
             }
 
             return circular.Count.ToString();
-
         }
 
         private bool IsCircularPrime(int number)
@@ -63,8 +55,6 @@ namespace Problems
                 {
                     return false;
                 }
-
-
             }
             return true;
 

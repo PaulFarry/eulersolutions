@@ -1,10 +1,6 @@
 ﻿using Common;
-using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Numerics;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Problems
 {
@@ -18,10 +14,12 @@ namespace Problems
         {
             var b = new BigInteger(1);
             var next = new BigInteger(1);
-            var items = new List<BigInteger>();
-            items.Add(b);
-            items.Add(b);
-            while(true)
+            var items = new List<BigInteger>
+            {
+                b,
+                b
+            };
+            while (true)
             {
                 var c = b + next;
                 b = next;
