@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
+using System.Linq;
 using System.Numerics;
 using System.Reflection;
 using System.Text;
@@ -182,6 +183,22 @@ namespace Common
             }
 
             return true;
+        }
+
+        public static bool IsPalindrome(int value)
+        {
+            return IsPalindrome(value.ToString());
+        }
+
+        public static bool IsPalindrome(string value)
+        {
+            var left = string.Empty;
+            var right = string.Empty;
+            var length = value.Length / 2;
+            //if (value.Length % 2 != 0) length--;
+            left = value.Substring(0, length);
+            right = string.Join("", value.Substring(value.Length - length).ToCharArray().Reverse());
+            return left == right;
         }
 
     }
