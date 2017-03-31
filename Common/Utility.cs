@@ -11,6 +11,17 @@ namespace Common
 {
     public class Utility
     {
+        public static int CalculateFactorial(int value)
+        {
+            if (value == 1) return 1;
+            int res = 1;
+            for (int i = 2; i <= value; i++)
+            {
+                res *= i;
+            }
+            return res;
+        }
+
         public static void GeneratePrimes(long minValue, long maxValue)
         {
             {
