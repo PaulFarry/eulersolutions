@@ -22,6 +22,18 @@ namespace Common
             return res;
         }
 
+        public static BigInteger CalculateFactorial(BigInteger value)
+        {
+            if (value == 1) return 1;
+            BigInteger result = 1;
+            for(int i = 2; i <= value; i++)
+            {
+                result *= i;
+            }
+            return result;
+
+        }
+
         public static void GeneratePrimes(long minValue, long maxValue)
         {
             {
