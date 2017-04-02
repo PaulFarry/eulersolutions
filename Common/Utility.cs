@@ -22,6 +22,21 @@ namespace Common
             return res;
         }
 
+        public static bool ContainsAllDigits(int currentIndex, int comparision)
+        {
+            var current = new List<char>(currentIndex.ToString().ToCharArray());
+            var compare = new List<char>(comparision.ToString().ToCharArray());
+
+            foreach(var c in current)
+            {
+                var position = compare.IndexOf(c);
+                if (position < 0) return false;
+                compare.RemoveAt(position);
+            }
+
+            return true;
+        }
+
         public static BigInteger CalculateFactorial(BigInteger value)
         {
             if (value == 1) return 1;
