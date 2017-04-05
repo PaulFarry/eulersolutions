@@ -10,7 +10,7 @@ namespace Problems.Problems01To49.Problems50To99
 
         public string Execute()
         {
-            var primes = Utility.LoadPrimes(7200);
+            var primes = Primes.LoadPrimes(7200);
             var maxCap = 50000000;
 
             var numbers = new HashSet<int>();

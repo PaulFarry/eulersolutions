@@ -7,13 +7,13 @@ namespace Problems.Problems01To49
     {
         public int Number => 37;
 
-        private HashSet<int> primeLookup;
+        private HashSet<long> primeLookup;
         public string Execute()
         {
-            var primes = Utility.LoadPrimes(1000000);
+            var primes = Primes.LoadPrimes(1000000);
 
-            var primeSum = 0;
-            primeLookup = new HashSet<int>(primes);
+            var primeSum = (long)0;
+            primeLookup = new HashSet<long>(primes);
 
             var primesFound = 0;
 
@@ -31,7 +31,7 @@ namespace Problems.Problems01To49
             return primeSum.ToString();
         }
 
-        private bool TruncatablePrime(int value)
+        private bool TruncatablePrime(long value)
         {
             var valueString = value.ToString();
             var valueLength = valueString.Length;
