@@ -1,5 +1,4 @@
 ﻿using Common;
-using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
@@ -8,7 +7,8 @@ class Program
 {
     static void Main(string[] args)
     {
-        var solvableProblems = FindProblems();
+
+        var solvableProblems = ProblemService.GetProblems(typeof(Problems.DiscoveryProblem).Assembly);
 
         var problemToRun = 0;
         RunProblems(solvableProblems, problemToRun);
@@ -74,25 +74,5 @@ class Program
         {
             Debug.Print($"Problem {problem.Number} is incomplete");
         }
-    }
-
-    private static SortedDictionary<int, IProblem> FindProblems()
-    {
-        var solvableProblems = new SortedDictionary<int, IProblem>();
-        var problemBase = typeof(IProblem);
-
-        foreach (var t in typeof(Problems.DiscoveryProblem).Assembly.GetTypes())
-        {
-            if (problemBase.IsAssignableFrom(t))
-            {
-                var instance = (IProblem)Activator.CreateInstance(t);
-                if (instance.Number > 0)
-                {
-                    solvableProblems.Add(instance.Number, instance);
-                }
-            }
-        }
-        return solvableProblems;
-
     }
 }
