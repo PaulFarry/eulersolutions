@@ -14,9 +14,44 @@ namespace Problems.Problems01To49
             var primes = Primes.LoadPrimes(1000);
 
             //return Attempt1(primes); //Mine
-            return Attempt2(primes); //Euler forums
+            //return Attempt2(primes); //Euler forums
+            return Attempt3(primes); //Euler forums
         }
 
+        private string Attempt3(List<long> primes)
+        {
+            var sequenceLength = 0;
+
+            var longestIndex = 0;
+            foreach (var p in primes)
+            {
+                if (p < 10) continue;
+                var i = (int)p;
+                if (sequenceLength >= i)
+                {
+                    break;
+                }
+
+                var foundRemainders = new int[i];
+                int value = 1;
+                int position = 0;
+
+                while (foundRemainders[value] == 0 && value != 0)
+                {
+                    foundRemainders[value] = position;
+                    value *= 10;
+                    value %= i;
+                    position++;
+                }
+
+                if (position - foundRemainders[value] > sequenceLength)
+                {
+                    sequenceLength = position - foundRemainders[value];
+                    longestIndex = i;
+                }
+            }
+            return longestIndex.ToString();
+        }
         private string Attempt1(List<long> primes)
         {
             var bigNumber = BigInteger.Pow(1000, 1000);
@@ -57,7 +92,7 @@ namespace Problems.Problems01To49
                 .Range(1, text.Length / 2)
                 .Where(n => text.Length % n == 0)
                 .Select(n => text.Substring(0, n))
-                .Where(pattern => 
+                .Where(pattern =>
                     Enumerable.Range(0, text.Length / pattern.Length)
                         .SelectMany(i => pattern)
                         .SequenceEqual(text)
