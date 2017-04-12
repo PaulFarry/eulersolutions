@@ -1,11 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Diagnostics;
-using System.IO;
 using System.Linq;
 using System.Numerics;
-using System.Reflection;
-using System.Text;
 
 namespace Common
 {
@@ -58,6 +54,21 @@ namespace Common
         }
 
 
+        public static HashSet<int> CalculateTriangleNumbers(int largestValue)
+        {
+            var result = new HashSet<int>();
+
+            var n = 1;
+
+            while (true)
+            {
+                int t = n * (n + 1) / 2;
+                n++;
+                result.Add(t);
+                if (t > largestValue) break;
+            }
+            return result;
+        }
 
 
         public static List<long> GetAllDivisors(long number)
