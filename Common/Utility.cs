@@ -71,6 +71,21 @@ namespace Common
         }
 
 
+        public static List<long> GetDistinctDivisors(long number)
+        {
+            var divisors = new HashSet<long>() { 1 };
+            var tippingPoint = Math.Sqrt(number);
+            for (var i = 2; i <= tippingPoint; i++)
+            {
+                if ((number % i) == 0)
+                {
+                    divisors.Add(i);
+                    divisors.Add(number / i);
+                }
+            }
+            return divisors.ToList();
+        }
+
         public static List<long> GetAllDivisors(long number)
         {
             var tippingPoint = Math.Sqrt(number);
