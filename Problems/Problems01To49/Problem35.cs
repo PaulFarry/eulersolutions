@@ -7,17 +7,17 @@ namespace Problems.Problems01To49
     {
         public int Number => 35;
 
-        private HashSet<int> PrimeList = new HashSet<int>();
+        private HashSet<long> PrimeList = new HashSet<long>();
 
         public string Execute()
         {
             //circular primes < 100 = 2,3,5,7,11,13,17,31,37,71,73,79,97
             //circular primes < 1000000
             var maxValue = 1000000;
-            var primes = Utility.LoadPrimes(maxValue);
-            PrimeList = new HashSet<int>(primes);
+            var primes = Primes.LoadPrimes(maxValue);
+            PrimeList = new HashSet<long>(primes);
 
-            var circular = new HashSet<int>();
+            var circular = new HashSet<long>();
 
             foreach (var checkValue in PrimeList)
             {
@@ -30,7 +30,7 @@ namespace Problems.Problems01To49
             return circular.Count.ToString();
         }
 
-        private bool IsCircularPrime(int number)
+        private bool IsCircularPrime(long number)
         {
             if (number < 10)
             {

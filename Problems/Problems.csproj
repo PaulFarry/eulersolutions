@@ -56,6 +56,7 @@
     <Compile Include="Problems01To49\Problem12.cs" />
     <Compile Include="Problems01To49\Problem13.cs" />
     <Compile Include="Problems01To49\Problem14.cs" />
+    <Compile Include="Problems01To49\Problem15.cs" />
     <Compile Include="Problems01To49\Problem16.cs" />
     <Compile Include="Problems01To49\Problem17.cs" />
     <Compile Include="Problems01To49\Problem18.cs" />
@@ -63,8 +64,11 @@
     <Compile Include="Problems01To49\Problem20.cs" />
     <Compile Include="Problems01To49\Problem21.cs" />
     <Compile Include="Problems01To49\Problem22.cs" />
+    <Compile Include="Problems01To49\Problem23.cs" />
     <Compile Include="Problems01To49\Problem24.cs" />
     <Compile Include="Problems01To49\Problem25.cs" />
+    <Compile Include="Problems01To49\Problem26.cs" />
+    <Compile Include="Problems01To49\Problem27.cs" />
     <Compile Include="Problems01To49\Problem28.cs" />
     <Compile Include="Problems01To49\Problem29.cs" />
     <Compile Include="Problems01To49\Problem30.cs" />
@@ -76,10 +80,16 @@
     <Compile Include="Problems01To49\Problem40.cs" />
     <Compile Include="Problems01To49\Problem41.cs" />
     <Compile Include="Problems01To49\Problem31.cs" />
+    <Compile Include="Problems01To49\Problem42.cs" />
     <Compile Include="Problems01To49\Problem43.cs" />
+    <Compile Include="Problems01To49\Problem44.cs" />
+    <Compile Include="Problems01To49\Problem47.cs" />
+    <Compile Include="Problems01To49\Problem49.cs" />
+    <Compile Include="Problems50To99\Problem52.cs" />
     <Compile Include="Problems50To99\Problem56.cs" />
     <Compile Include="Problems50To99\Problem67.cs" />
     <Compile Include="Problems50To99\Problem87.cs" />
+    <Compile Include="Problems50To99\Problem99.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -93,6 +103,12 @@
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="DataFiles\p022_names.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="DataFiles\p42.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="DataFiles\p99.txt" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

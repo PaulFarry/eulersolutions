@@ -1,11 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Diagnostics;
-using System.IO;
 using System.Linq;
 using System.Numerics;
-using System.Reflection;
-using System.Text;
 
 namespace Common
 {
@@ -22,51 +18,72 @@ namespace Common
             return res;
         }
 
-        public static void GeneratePrimes(long minValue, long maxValue)
+        public static bool ContainsAllDigitsSort(int currentIndex, int comparision)
         {
+            var current = new List<char>(currentIndex.ToString().ToCharArray());
+            var compare = new List<char>(comparision.ToString().ToCharArray());
+            current.Sort();
+            compare.Sort();
+            return (string.Join("", current) == string.Join("", compare));
+        }
+        public static bool ContainsAllDigits(int currentIndex, int comparision)
+        {
+            var current = new List<char>(currentIndex.ToString().ToCharArray());
+            var compare = new List<char>(comparision.ToString().ToCharArray());
+
+            foreach (var c in current)
             {
-                var items = new StringBuilder();
-                for (var i = 1; i < maxValue; i++)
-                {
-                    if (IsPrime(i))
-                    {
-                        items.AppendLine($"{i}");
-                    }
-                }
-                Debug.Print(items.ToString());
+                var position = compare.IndexOf(c);
+                if (position < 0) return false;
+                compare.RemoveAt(position);
             }
+
+            return true;
         }
 
-        public static void GeneratePrimes(long maximumValue)
+        public static BigInteger CalculateFactorial(BigInteger value)
         {
-            GeneratePrimes(1, maximumValue);
-        }
-
-        public static List<int> LoadPrimes()
-        {
-            return LoadPrimes(int.MaxValue);
-        }
-
-        public static List<int> LoadPrimes(int maximumValue)
-        {
-            var values = new List<int>();
-            using (var primeResourceFileData = Assembly.GetExecutingAssembly().GetManifestResourceStream("Common.PrimeList.txt"))
+            if (value == 1) return 1;
+            BigInteger result = 1;
+            for (int i = 2; i <= value; i++)
             {
-                using (var sr = new StreamReader(primeResourceFileData))
+                result *= i;
+            }
+            return result;
+
+        }
+
+
+        public static HashSet<int> CalculateTriangleNumbers(int largestValue)
+        {
+            var result = new HashSet<int>();
+
+            var n = 1;
+
+            while (true)
+            {
+                int t = n * (n + 1) / 2;
+                n++;
+                result.Add(t);
+                if (t > largestValue) break;
+            }
+            return result;
+        }
+
+
+        public static List<long> GetDistinctDivisors(long number)
+        {
+            var divisors = new HashSet<long>() { 1 };
+            var tippingPoint = Math.Sqrt(number);
+            for (var i = 2; i <= tippingPoint; i++)
+            {
+                if ((number % i) == 0)
                 {
-                    while (true)
-                    {
-                        var currentLine = sr.ReadLine();
-                        if (string.IsNullOrEmpty(currentLine)) break;
-                        var currentValue = int.Parse(currentLine);
-                        if (currentValue <= maximumValue)
-                        {
-                            values.Add(currentValue);
-                        }
-                    }
+                    divisors.Add(i);
+                    divisors.Add(number / i);
                 }
             }
-            return values;
+            return divisors.ToList();
         }
 
         public static List<long> GetAllDivisors(long number)

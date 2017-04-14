@@ -30,6 +30,10 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="protobuf-net, Version=2.1.0.0, Culture=neutral, PublicKeyToken=257b51d87d2e4d67, processorArchitecture=MSIL">
+      <HintPath>..\packages\protobuf-net.2.1.0\lib\net451\protobuf-net.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Numerics" />
@@ -42,13 +46,16 @@
   <ItemGroup>
     <Compile Include="IProblem.cs" />
     <Compile Include="Parsing.cs" />
+    <Compile Include="Primes.cs" />
     <Compile Include="ProblemIncompleteException.cs" />
+    <Compile Include="ProblemService.cs" />
     <Compile Include="TreeSum.cs" />
     <Compile Include="Utility.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="PrimeList.txt" />
+    <None Include="packages.config" />
+    <EmbeddedResource Include="PrimeList.dat" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

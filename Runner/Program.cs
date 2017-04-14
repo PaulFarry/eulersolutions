@@ -2,25 +2,33 @@
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
-using System.Linq;
+using System.IO;
 
 class Program
 {
     static void Main(string[] args)
     {
-        var solvableProblems = FindProblems();
 
-        var problemToRun = 39;
+        var solvableProblems = ProblemService.GetProblems(typeof(Problems.DiscoveryProblem).Assembly);
+
+        var problemToRun = 99;
         RunProblems(solvableProblems, problemToRun);
+    }
+
+
+    private static FileInfo GetPrimeFile()
+    {
+        var appData = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData);
+        var fileInfo = new FileInfo(Path.Combine(appData, "Euler", "PrimeList.dat"));
+        fileInfo.Directory.Create();
+        return fileInfo;
     }
 
     private static void GeneratePrimes()
     {
-        //Utility.GeneratePrimes(1000000);
-        var primeList = Utility.LoadPrimes(1000000);
-        var minValue = primeList.Max();
-
-        Utility.GeneratePrimes(minValue + 1, 2000000);
+        var primeList = Primes.LoadPrimes();
+        Primes.ConvertPrimes(primeList, GetPrimeFile().FullName);
+        //Now move the output file to the Development folder as an embedded resource
         return;
     }
 
@@ -53,33 +61,19 @@ class Program
         try
         {
             var sw = Stopwatch.StartNew();
-            var answer = problem.Execute();
+            string answer = string.Empty;
+            var executions = 1;
+            for (var i = 1; i <= executions; i++)
+            {
+                answer = problem.Execute();
+            }
             sw.Stop();
             Debug.Print($"Problem {problem.Number} Answer = {answer} took {sw.ElapsedMilliseconds}ms to run");
+            Debug.Print($"Average {sw.ElapsedMilliseconds / (double)executions}");
         }
         catch (ProblemIncompleteException)
         {
             Debug.Print($"Problem {problem.Number} is incomplete");
         }
-    }
-
-    private static SortedDictionary<int, IProblem> FindProblems()
-    {
-        var solvableProblems = new SortedDictionary<int, IProblem>();
-        var problemBase = typeof(IProblem);
-
-        foreach (var t in typeof(Problems.DiscoveryProblem).Assembly.GetTypes())
-        {
-            if (problemBase.IsAssignableFrom(t))
-            {
-                var instance = (IProblem)Activator.CreateInstance(t);
-                if (instance.Number > 0)
-                {
-                    solvableProblems.Add(instance.Number, instance);
-                }
-            }
-        }
-        return solvableProblems;
-
     }
 }
