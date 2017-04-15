@@ -2,11 +2,33 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Numerics;
+using System.Text;
 
 namespace Common
 {
     public class Utility
     {
+        private static string Pandigital9Compare = "123456789";
+
+        public static bool Pandigital(StringBuilder value)
+        {
+            if (value.Length != 9) return false;
+            return Pandigital(value.ToString());
+        }
+
+        public static bool Pandigital(string value)
+        {
+            if (value.Length != 9) return false;
+            var arr = value.ToCharArray();
+            Array.Sort(arr);
+            var joined = string.Join("", arr);
+            if (Pandigital9Compare == joined)
+            {
+                return true;
+            }
+            return false;
+        }
+
         public static int GreatestCommonDenominator(int numerator, int denominator)
         {
             var cap = numerator > denominator ? numerator : denominator;

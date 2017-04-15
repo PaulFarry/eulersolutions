@@ -11,8 +11,6 @@ namespace Problems.Problems01To49
 
         public string Execute()
         {
-
-            var compareString = "123456789";
             var results = new HashSet<int>();
 
             var maxRange = 10000;
@@ -29,7 +27,7 @@ namespace Problems.Problems01To49
                     var chars = test.ToCharArray();
                     Array.Sort(chars);
                     var resultString = string.Join("", chars);
-                    if (resultString == compareString)
+                    if (Utility.Pandigital(resultString))
                     {
                         results.Add(result);
                     }
