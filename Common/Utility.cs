@@ -7,6 +7,19 @@ namespace Common
 {
     public class Utility
     {
+        public static int GreatestCommonDenominator(int numerator, int denominator)
+        {
+            var cap = numerator > denominator ? numerator : denominator;
+            for (var i = cap; i >= 2; i--)
+            {
+                if (numerator % i == 0 && denominator % i == 0)
+                {
+                    return i;
+                }
+            }
+            return 1;
+
+        }
         public static int CalculateFactorial(int value)
         {
             if (value == 1) return 1;
