@@ -11,7 +11,7 @@ class Program
 
         var solvableProblems = ProblemService.GetProblems(typeof(Problems.DiscoveryProblem).Assembly);
 
-        var problemToRun = 98;
+        var problemToRun = 92;
         RunProblems(solvableProblems, problemToRun);
     }
 
