@@ -27,7 +27,6 @@ namespace Problems.Problems50To99
         }
 
         private Dictionary<string, WordPair> Pairs { get; set; }
-        int totalLoops = 0;
 
         private Dictionary<string, WordPair> GetWords()
         {
