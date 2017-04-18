@@ -18,6 +18,13 @@ namespace Common
             return res;
         }
 
+        public static string SortCharacters(string text)
+        {
+            var characters = text.ToArray();
+            Array.Sort(characters);
+            return string.Join("", characters);
+        }
+
         public static bool ContainsAllDigitsSort(int currentIndex, int comparision)
         {
             var current = new List<char>(currentIndex.ToString().ToCharArray());
@@ -130,6 +137,12 @@ namespace Common
                 end if
             end while
          */
+
+        public static List<string> GenerateCombinations(string word)
+        {
+            return GenerateCombinations(word.ToCharArray());
+        }
+
         public static List<string> GenerateCombinations(char[] characters)
         {
             var result = new List<string>();
