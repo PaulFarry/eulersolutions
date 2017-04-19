@@ -29,6 +29,43 @@ namespace Common
             return false;
         }
 
+        static BigInteger GCD(BigInteger[] numbers)
+        {
+            return numbers.Aggregate(GCD);
+        }
+
+        static BigInteger LCM(BigInteger[] numbers)
+        {
+            return numbers.Aggregate(LCM);
+        }
+
+        static BigInteger GCD(BigInteger a, BigInteger b)
+        {
+            return b == 0 ? a : GCD(b, a % b);
+        }
+
+        public static BigInteger LCM(BigInteger a, BigInteger b)
+        {
+            BigInteger num1, num2;
+            if (a > b)
+            {
+                num1 = a; num2 = b;
+            }
+            else
+            {
+                num1 = b; num2 = a;
+            }
+
+            for (BigInteger i = 1; i < num2; i++)
+            {
+                if ((num1 * i) % num2 == 0)
+                {
+                    return i * num1;
+                }
+            }
+            return num1 * num2;
+        }
+
         public static int GreatestCommonDenominator(int numerator, int denominator)
         {
             var cap = numerator > denominator ? numerator : denominator;
@@ -67,6 +104,8 @@ namespace Common
             var value = string.Join("", characters);
             return long.Parse(value);
         }
+
+
 
         public static bool ContainsAllDigitsSort(int currentIndex, int comparision)
         {
