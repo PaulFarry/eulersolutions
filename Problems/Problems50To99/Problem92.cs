@@ -10,9 +10,11 @@ namespace Problems.Problems50To99
 
         private HashSet<int> SolvedValues;
         private HashSet<int> Bucket89;
+        private Dictionary<int, int> sumSquareLut;
 
         public string Execute()
         {
+            sumSquareLut = new Dictionary<int, int>();
 
             var max = (int)Math.Pow(10, 7);
             var totalValues = 0;
@@ -41,9 +43,25 @@ namespace Problems.Problems50To99
         {
             var chainValue = startPoint;
             var chain = new List<int>();
+            var firstLeg = true;
+
             while (true)
             {
-                var newChainValue = SumSquareDigits(chainValue);
+                int newChainValue;
+
+                if (!firstLeg)
+                {
+                    if (!sumSquareLut.TryGetValue(chainValue, out newChainValue))
+                    {
+                        newChainValue = SumSquareDigits(chainValue);
+                        sumSquareLut.Add(chainValue, newChainValue);
+                    }
+                }
+                else
+                {
+                    newChainValue = SumSquareDigits(chainValue);
+                }
+                firstLeg = false;
 
                 if (SolvedValues.Contains(newChainValue))
                 {
