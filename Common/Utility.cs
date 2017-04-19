@@ -60,6 +60,14 @@ namespace Common
             return string.Join("", characters);
         }
 
+        public static long ReverseNumber(long number)
+        {
+            var characters = number.ToString().ToCharArray();
+            Array.Reverse(characters);
+            var value = string.Join("", characters);
+            return long.Parse(value);
+        }
+
         public static bool ContainsAllDigitsSort(int currentIndex, int comparision)
         {
             var current = new List<char>(currentIndex.ToString().ToCharArray());
