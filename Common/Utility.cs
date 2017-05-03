@@ -99,12 +99,14 @@ namespace Common
 
         public static long ReverseNumber(long number)
         {
-            var characters = number.ToString().ToCharArray();
-            Array.Reverse(characters);
-            var value = string.Join("", characters);
-            return long.Parse(value);
+            long reversed = 0;
+            while (number > 0)
+            {
+                reversed = 10 * reversed + number % 10;
+                number /= 10;
+            }
+            return reversed;
         }
-
 
 
         public static bool ContainsAllDigitsSort(int currentIndex, int comparision)
