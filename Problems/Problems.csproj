@@ -91,6 +91,7 @@
     <Compile Include="Problems01To49\Problem47.cs" />
     <Compile Include="Problems01To49\Problem48.cs" />
     <Compile Include="Problems01To49\Problem49.cs" />
+    <Compile Include="Problems100To149\Problem102.cs" />
     <Compile Include="Problems100To149\Problem145.cs" />
     <Compile Include="Problems50To99\Problem52.cs" />
     <Compile Include="Problems50To99\Problem53.cs" />
@@ -129,6 +130,9 @@
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="DataFiles\p59.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="DataFiles\p102.txt" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
