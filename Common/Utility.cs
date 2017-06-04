@@ -2,11 +2,83 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Numerics;
+using System.Text;
 
 namespace Common
 {
     public class Utility
     {
+        private static string Pandigital9Compare = "123456789";
+
+        public static bool Pandigital(StringBuilder value)
+        {
+            if (value.Length != 9) return false;
+            return Pandigital(value.ToString());
+        }
+
+        public static bool Pandigital(string value)
+        {
+            if (value.Length != 9) return false;
+            var arr = value.ToCharArray();
+            Array.Sort(arr);
+            var joined = string.Join("", arr);
+            if (Pandigital9Compare == joined)
+            {
+                return true;
+            }
+            return false;
+        }
+
+        static BigInteger GCD(BigInteger[] numbers)
+        {
+            return numbers.Aggregate(GCD);
+        }
+
+        static BigInteger LCM(BigInteger[] numbers)
+        {
+            return numbers.Aggregate(LCM);
+        }
+
+        static BigInteger GCD(BigInteger a, BigInteger b)
+        {
+            return b == 0 ? a : GCD(b, a % b);
+        }
+
+        public static BigInteger LCM(BigInteger a, BigInteger b)
+        {
+            BigInteger num1, num2;
+            if (a > b)
+            {
+                num1 = a; num2 = b;
+            }
+            else
+            {
+                num1 = b; num2 = a;
+            }
+
+            for (BigInteger i = 1; i < num2; i++)
+            {
+                if ((num1 * i) % num2 == 0)
+                {
+                    return i * num1;
+                }
+            }
+            return num1 * num2;
+        }
+
+        public static int GreatestCommonDenominator(int numerator, int denominator)
+        {
+            var cap = numerator > denominator ? numerator : denominator;
+            for (var i = cap; i >= 2; i--)
+            {
+                if (numerator % i == 0 && denominator % i == 0)
+                {
+                    return i;
+                }
+            }
+            return 1;
+
+        }
         public static int CalculateFactorial(int value)
         {
             if (value == 1) return 1;
@@ -17,6 +89,25 @@ namespace Common
             }
             return res;
         }
+
+        public static string SortCharacters(string text)
+        {
+            var characters = text.ToArray();
+            Array.Sort(characters);
+            return string.Join("", characters);
+        }
+
+        public static long ReverseNumber(long number)
+        {
+            long reversed = 0;
+            while (number > 0)
+            {
+                reversed = 10 * reversed + number % 10;
+                number /= 10;
+            }
+            return reversed;
+        }
+
 
         public static bool ContainsAllDigitsSort(int currentIndex, int comparision)
         {
@@ -130,6 +221,12 @@ namespace Common
                 end if
             end while
          */
+
+        public static List<string> GenerateCombinations(string word)
+        {
+            return GenerateCombinations(word.ToCharArray());
+        }
+
         public static List<string> GenerateCombinations(char[] characters)
         {
             var result = new List<string>();
