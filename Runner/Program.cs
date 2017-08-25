@@ -8,10 +8,9 @@ class Program
 {
     static void Main(string[] args)
     {
-
         var solvableProblems = ProblemService.GetProblems(typeof(Problems.DiscoveryProblem).Assembly);
 
-        var problemToRun = 97;
+        var problemToRun = 72;
         RunProblems(solvableProblems, problemToRun);
     }
 

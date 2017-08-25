@@ -29,6 +29,26 @@ namespace Common
             return false;
         }
 
+        public static int[] ListTotients(int maxValue)
+        {
+            if (maxValue < 0)
+                throw new ArgumentOutOfRangeException("Negative array size");
+            int[] result = new int[maxValue + 1];
+            for (int i = 0; i <= maxValue; i++)
+            {
+                result[i] = i;
+            }
+            for (int i = 2; i <= maxValue; i++)
+            {
+                if (result[i] == i)
+                {  // i is prime
+                    for (int j = i; j <= maxValue; j += i)
+                        result[j] -= result[j] / i;
+                }
+            }
+            return result;
+        }
+
         static BigInteger GCD(BigInteger[] numbers)
         {
             return numbers.Aggregate(GCD);
